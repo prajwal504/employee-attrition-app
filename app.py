@@ -8,7 +8,7 @@ st.set_page_config(page_title="Smart HR AI System", layout="wide")
 # Load model
 model = joblib.load("attrition_model.pkl")
 
-# Custom CSS (Premium UI)
+# Custom CSS
 st.markdown("""
 <style>
 .main {
@@ -17,9 +17,6 @@ st.markdown("""
 h1 {
     color: #00FFAA;
     text-align: center;
-}
-h3 {
-    color: #FFFFFF;
 }
 .stButton>button {
     background-color: #00FFAA;
@@ -43,11 +40,9 @@ if page == "About Project":
     st.write("""
     This Smart HR AI System predicts employee attrition using Machine Learning.
     
-    🔹 Model Used: Random Forest  
-    🔹 Features: Age, Salary, Overtime, Satisfaction, Experience  
+    🔹 Model: Random Forest  
+    🔹 Features: Age, Salary, Experience, Overtime, Satisfaction  
     🔹 Output: Attrition Risk (High / Low)
-    
-    This helps companies take proactive decisions to retain employees.
     """)
 
 # ===========================
@@ -61,8 +56,8 @@ else:
     ---
     ### 🚀 Features:
     - AI-based Attrition Prediction  
-    - Real-time Input Processing  
-    - Interactive Dashboard  
+    - Real-time Input  
+    - User-friendly Results  
     ---
     """)
 
@@ -88,10 +83,26 @@ else:
             prediction = model.predict(input_data)
             prob = model.predict_proba(input_data)
 
-            if prediction[0] == 1:
-                st.error("⚠️ High Risk of Attrition")
-            else:
-                st.success("✅ Low Risk of Attrition")
+            risk = prediction[0]
+            confidence = prob[0][risk] * 100
 
-            st.write("### 🔍 Model Confidence")
-            st.write(prob)
+            st.markdown("### 📊 Prediction Result")
+
+            if risk == 1:
+                st.error(f"⚠️ High Risk of Attrition\n\nConfidence: {confidence:.2f}%")
+                
+                st.markdown("""
+                **💡 Recommendation:**
+                - Improve job satisfaction  
+                - Reduce overtime workload  
+                - Review salary structure  
+                """)
+
+            else:
+                st.success(f"✅ Low Risk of Attrition\n\nConfidence: {confidence:.2f}%")
+                
+                st.markdown("""
+                **👍 Status:**
+                - Employee is stable  
+                - Maintain current conditions  
+                """)
