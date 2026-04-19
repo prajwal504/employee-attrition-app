@@ -1,9 +1,11 @@
 import streamlit as st
+st.set_page_config(page_title="HR Dashboard", layout="wide")
+
 import pandas as pd
 
 st.title("📊 HR Dashboard")
 
-# KPIs
+# KPI Section
 col1, col2, col3 = st.columns(3)
 
 col1.metric("Total Employees", "58")
@@ -12,7 +14,7 @@ col3.metric("Avg Satisfaction", "3.8/5")
 
 st.write("---")
 
-# Charts
+# Employees by Department
 data = pd.DataFrame({
     "Department": ["HR", "IT", "Sales", "Finance"],
     "Employees": [10, 25, 15, 8]
@@ -21,6 +23,7 @@ data = pd.DataFrame({
 st.subheader("👥 Employees by Department")
 st.bar_chart(data.set_index("Department"))
 
+# Monthly Attrition
 attrition = pd.DataFrame({
     "Month": ["Jan", "Feb", "Mar", "Apr"],
     "Attrition": [2, 3, 1, 4]
