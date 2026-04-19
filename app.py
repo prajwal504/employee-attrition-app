@@ -1,50 +1,41 @@
 import streamlit as st
+import pandas as pd
+import joblib
 
-# ===== CONFIG =====
 st.set_page_config(page_title="HR AI System", layout="wide")
 
-# ===== LIGHT CLEAN UI =====
-st.markdown("""
-<style>
-.main {
-    background-color: #f5f7fa;
-}
-.title {
-    text-align: center;
-    font-size: 40px;
-    font-weight: bold;
-    color: #2c3e50;
-}
-.subtitle {
-    text-align: center;
-    color: #555;
-    font-size: 18px;
-}
-</style>
-""", unsafe_allow_html=True)
+model = joblib.load("attrition_model.pkl")
 
 # ===== HEADER =====
-st.markdown('<div class="title">💼 HR AI System</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">AI-powered employee attrition analysis</div>', unsafe_allow_html=True)
+st.title("💼 HR AI System")
 
-st.write("---")
-
-# ===== NAVIGATION (WORKING) =====
 page = st.radio(
-    "Navigate",
-    ["📊 Dashboard", "🤖 Predict", "📄 Resume Screening", "📘 About"],
+    "",
+    ["Dashboard", "Predict", "Resume", "About"],
     horizontal=True
 )
 
-# ===== ROUTING (NO ERRORS) =====
-if page == "📊 Dashboard":
-    st.switch_page("pages/1_HR_Dashboard.py")
+# ===== DASHBOARD =====
+if page == "Dashboard":
+    st.subheader("📊 HR Dashboard")
+    st.write("Basic analytics here")
 
-elif page == "🤖 Predict":
-    st.switch_page("pages/2_Predict.py")
+# ===== PREDICT =====
+elif page == "Predict":
+    st.subheader("🤖 Attrition Predictor")
 
-elif page == "📄 Resume Screening":
-    st.switch_page("pages/3_Resume_Screening.py")
+    age = st.number_input("Age", 18, 60)
+    salary = st.number_input("Salary", 10000, 200000)
 
-elif page == "📘 About":
-    st.switch_page("pages/4_About.py")
+    if st.button("Predict"):
+        st.success("Prediction working")
+
+# ===== RESUME =====
+elif page == "Resume":
+    st.subheader("📄 Resume Screening")
+    file = st.file_uploader("Upload resume")
+
+# ===== ABOUT =====
+elif page == "About":
+    st.subheader("📘 About")
+    st.write("HR AI System project")
