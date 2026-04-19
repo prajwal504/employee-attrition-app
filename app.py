@@ -3,27 +3,18 @@ import streamlit as st
 # ===== CONFIG =====
 st.set_page_config(page_title="HR AI System", layout="wide")
 
-# ===== CLEAN LIGHT UI =====
+# ===== LIGHT CLEAN UI =====
 st.markdown("""
 <style>
-/* Background */
 .main {
     background-color: #f5f7fa;
 }
-
-/* Remove sidebar completely */
-section[data-testid="stSidebar"] {
-    display: none;
-}
-
-/* Header */
 .title {
     text-align: center;
     font-size: 40px;
     font-weight: bold;
     color: #2c3e50;
 }
-
 .subtitle {
     text-align: center;
     color: #555;
@@ -39,12 +30,13 @@ st.markdown('<div class="subtitle">AI-powered employee attrition analysis</div>'
 st.write("---")
 
 # ===== NAVIGATION (WORKING) =====
-page = st.selectbox(
+page = st.radio(
     "Navigate",
-    ["📊 Dashboard", "🤖 Predict", "📄 Resume Screening", "📘 About"]
+    ["📊 Dashboard", "🤖 Predict", "📄 Resume Screening", "📘 About"],
+    horizontal=True
 )
 
-# ===== ROUTING =====
+# ===== ROUTING (NO ERRORS) =====
 if page == "📊 Dashboard":
     st.switch_page("pages/1_HR_Dashboard.py")
 
