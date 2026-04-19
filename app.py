@@ -1,45 +1,58 @@
 import streamlit as st
 
+# ===== CONFIG =====
 st.set_page_config(page_title="HR AI System", layout="wide")
 
-# ===== SIDEBAR STYLE =====
+# ===== CLEAN LIGHT UI =====
 st.markdown("""
 <style>
-/* Expand sidebar width */
+/* Background */
+.main {
+    background-color: #f5f7fa;
+}
+
+/* Remove sidebar completely */
 section[data-testid="stSidebar"] {
-    width: 260px !important;
+    display: none;
 }
 
-/* Sidebar title */
-[data-testid="stSidebarNav"]::before {
-    content: "💼 HR AI System";
-    font-size: 22px;
+/* Header */
+.title {
+    text-align: center;
+    font-size: 40px;
     font-weight: bold;
-    margin-left: 15px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: block;
+    color: #2c3e50;
 }
 
-/* Improve spacing */
-[data-testid="stSidebarNav"] ul {
-    padding-top: 10px;
+.subtitle {
+    text-align: center;
+    color: #555;
+    font-size: 18px;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ===== MAIN PAGE =====
-st.title("👋 Welcome to HR AI System")
+# ===== HEADER =====
+st.markdown('<div class="title">💼 HR AI System</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">AI-powered employee attrition analysis</div>', unsafe_allow_html=True)
 
-st.write("""
-### Navigate using the sidebar →
+st.write("---")
 
-- 📊 HR Dashboard  
-- 🤖 Predict Attrition  
-- 📄 Resume Screening  
-- 📘 About  
+# ===== NAVIGATION (WORKING) =====
+page = st.selectbox(
+    "Navigate",
+    ["📊 Dashboard", "🤖 Predict", "📄 Resume Screening", "📘 About"]
+)
 
----
+# ===== ROUTING =====
+if page == "📊 Dashboard":
+    st.switch_page("pages/1_HR_Dashboard.py")
 
-🚀 This system helps HR teams make smarter decisions using AI.
-""")
+elif page == "🤖 Predict":
+    st.switch_page("pages/2_Predict.py")
+
+elif page == "📄 Resume Screening":
+    st.switch_page("pages/3_Resume_Screening.py")
+
+elif page == "📘 About":
+    st.switch_page("pages/4_About.py")
